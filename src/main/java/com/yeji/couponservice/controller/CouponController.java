@@ -2,10 +2,13 @@ package com.yeji.couponservice.controller;
 
 import com.yeji.couponservice.common.ApiUtil;
 import com.yeji.couponservice.controller.form.CouponRequestForm;
+import com.yeji.couponservice.controller.response.CouponResponse;
 import com.yeji.couponservice.service.CouponService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -16,7 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2024.01.10
  */
 @RequiredArgsConstructor
-@RestController("/api/coupon")
+@RestController
+@RequestMapping("/api/coupon")
 public class CouponController {
 
     private final CouponService couponService;
@@ -28,8 +32,8 @@ public class CouponController {
      * @return
      */
     @PostMapping
-    public ApiUtil.ApiResponse<CouponRequestForm> createCoupon(@Valid CouponRequestForm couponRequest) {
-        return couponService.createCoupon(couponRequest);
+    public ApiUtil.ApiResponse<CouponResponse> createCoupon(@Valid @RequestBody CouponRequestForm couponRequest) {
+        return ApiUtil.success(couponService.createCoupon(couponRequest), "처리되었습니다");
     }
 
 }

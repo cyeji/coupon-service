@@ -1,19 +1,17 @@
-package com.yeji.couponservice.controller.form;
+package com.yeji.couponservice.controller.response;
 
 
+import static org.springframework.beans.BeanUtils.copyProperties;
+
+import com.yeji.couponservice.repository.entity.Coupon;
 import jakarta.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * 쿠폰 생성 요청 폼
- *
- * @author yeji.jo
- * @since 2024.01.10
- */
 @Getter
 @Setter
-public class CouponRequestForm {
+public class CouponResponse {
 
     /** 쿠폰 명 */
     @NotNull
@@ -24,16 +22,16 @@ public class CouponRequestForm {
     private String couponCode;
 
     /** 쿠폰 다운로드 시작일 */
-    private String downloadStartDate;
+    private LocalDateTime downloadStartDate;
 
     /** 쿠폰 다운로드 종료일 */
-    private String downloadEndDate;
+    private LocalDateTime downloadEndDate;
 
     /** 쿠폰 사용가능 시작일 */
-    private String availableStartDate;
+    private LocalDateTime availableStartDate;
 
     /** 쿠폰 사용가능 종료일 */
-    private String availableEndDate;
+    private LocalDateTime availableEndDate;
 
     /** 할인 형태 */
     @NotNull
@@ -51,4 +49,11 @@ public class CouponRequestForm {
     @NotNull
     private String couponType;
 
+    public CouponResponse(Coupon coupon) {
+        copyProperties(coupon, this);
+    }
+
+    public static CouponResponse from(Coupon coupon) {
+        return new CouponResponse(coupon);
+    }
 }
