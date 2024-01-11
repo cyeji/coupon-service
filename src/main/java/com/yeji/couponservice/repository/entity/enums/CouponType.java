@@ -1,5 +1,8 @@
-package com.yeji.couponservice.repository.entity;
+package com.yeji.couponservice.repository.entity.enums;
 
+import lombok.Getter;
+
+@Getter
 public enum CouponType {
 
     ALL, // 전체
