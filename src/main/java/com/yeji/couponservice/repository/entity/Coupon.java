@@ -87,4 +87,11 @@ public class Coupon extends UpdatedEntity {
     public static Coupon from(CouponRequestForm couponRequest) {
         return new Coupon(couponRequest);
     }
+
+    public void minusCouponCount() {
+        if (this.numberOfCoupons < 0) {
+            throw new IllegalArgumentException("쿠폰 다운이 만료되었습니다.");
+        }
+        this.numberOfCoupons--;
+    }
 }
