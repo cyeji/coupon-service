@@ -3,7 +3,6 @@ package com.yeji.couponservice.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.yeji.couponservice.controller.form.CouponRequestForm;
-import com.yeji.couponservice.controller.response.CouponResponse;
 import com.yeji.couponservice.repository.CouponRepository;
 import com.yeji.couponservice.repository.entity.Coupon;
 import com.yeji.couponservice.repository.entity.enums.CouponType;
@@ -55,20 +54,24 @@ class IssuanceCouponTest {
         if (couponList.isEmpty()) {
             throw new IllegalStateException();
         }
-        
+        int threadCount = 100;
         UUID couponId = couponList.get(0)
                                   .getCouponId();
         // when
         ExecutorService executor = Executors.newFixedThreadPool(5);
-        CountDownLatch countDownLatch = new CountDownLatch(5);
+        CountDownLatch countDownLatch = new CountDownLatch(threadCount);
         // then
-        for (int i = 0; i <= 100; i++) {
-            executor.execute(() -> {
-                CouponResponse couponResponse = couponService.issuanceCoupon(couponId.toString());
-                System.out.println(couponResponse.getNumberOfCoupons());
-                countDownLatch.countDown();
+        for (int i = 0; i < threadCount; i++) {
+            executor.submit(() -> {
+                try {
+                    couponService.issuanceCoupon(couponId.toString());
+                } finally {
+                    countDownLatch.countDown();
+                }
+
             });
         }
+        countDownLatch.await();
 
         Optional<Coupon> optionalCompareCoupon = couponRepository.findById(couponId);
         if (optionalCompareCoupon.isEmpty()) {
@@ -76,7 +79,6 @@ class IssuanceCouponTest {
         }
 
         Coupon compareCoupon = optionalCompareCoupon.get();
-        countDownLatch.await();
         assertEquals(9900, compareCoupon.getNumberOfCoupons());
     }
 }

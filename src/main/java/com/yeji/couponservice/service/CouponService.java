@@ -5,7 +5,6 @@ import com.yeji.couponservice.controller.form.CouponRequestForm;
 import com.yeji.couponservice.controller.response.CouponResponse;
 import com.yeji.couponservice.repository.CouponRepository;
 import com.yeji.couponservice.repository.entity.Coupon;
-import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -53,13 +52,14 @@ public class CouponService {
      *
      * @param couponId 쿠폰 아이디
      */
-    @Transactional
     public CouponResponse issuanceCoupon(String couponId) {
-        Coupon coupon = couponRepository.findById(UUID.fromString(couponId))
-                                        .orElseThrow(() -> new NoSuchFieldError("쿠폰을 찾을 수 없습니다."));
-
-        coupon.minusCouponCount();
-
+        Coupon coupon;
+        synchronized (CouponService.class) {
+            coupon = couponRepository.findById(UUID.fromString(couponId))
+                                     .orElseThrow(() -> new NoSuchFieldError("쿠폰을 찾을 수 없습니다."));
+            coupon.minusCouponCount();
+            couponRepository.save(coupon);
+        }
         return CouponResponse.from(coupon);
     }
 }
