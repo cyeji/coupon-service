@@ -26,7 +26,7 @@ class IssuanceCouponTest {
     private CouponRepository couponRepository;
 
     @Autowired
-    private CouponService couponService;
+    private NormalCouponService normalCouponService;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -64,7 +64,7 @@ class IssuanceCouponTest {
         for (int i = 0; i < threadCount; i++) {
             executor.submit(() -> {
                 try {
-                    couponService.issuanceCoupon(couponId.toString());
+                    normalCouponService.issuanceCoupon(couponId.toString());
                 } finally {
                     countDownLatch.countDown();
                 }
