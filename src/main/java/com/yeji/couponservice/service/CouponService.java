@@ -52,14 +52,11 @@ public class CouponService {
      *
      * @param couponId 쿠폰 아이디
      */
-    public CouponResponse issuanceCoupon(String couponId) {
-        Coupon coupon;
-        synchronized (CouponService.class) {
-            coupon = couponRepository.findById(UUID.fromString(couponId))
-                                     .orElseThrow(() -> new NoSuchFieldError("쿠폰을 찾을 수 없습니다."));
-            coupon.minusCouponCount();
-            couponRepository.save(coupon);
-        }
+    public synchronized CouponResponse issuanceCoupon(String couponId) {
+        Coupon coupon = couponRepository.findById(UUID.fromString(couponId))
+                                        .orElseThrow(() -> new NoSuchFieldError("쿠폰을 찾을 수 없습니다."));
+        coupon.minusCouponCount();
+        couponRepository.save(coupon);
         return CouponResponse.from(coupon);
     }
 }
