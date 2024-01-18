@@ -1,12 +1,14 @@
 package com.yeji.couponservice.controller;
 
 import com.yeji.couponservice.common.ApiUtil;
+import com.yeji.couponservice.common.ApiUtil.ApiResponse;
 import com.yeji.couponservice.controller.form.CouponRequestForm;
 import com.yeji.couponservice.controller.response.CouponResponse;
 import com.yeji.couponservice.service.CouponService;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/coupon")
 public class CouponController {
 
+    @Qualifier("normalCouponService")
     private final CouponService couponService;
 
     /**
@@ -35,7 +38,7 @@ public class CouponController {
      * @return
      */
     @PostMapping
-    public ApiUtil.ApiResponse<CouponResponse> createCoupon(@Valid @RequestBody CouponRequestForm couponRequest) {
+    public ApiResponse<CouponResponse> createCoupon(@Valid @RequestBody CouponRequestForm couponRequest) {
         return ApiUtil.success(couponService.createCoupon(couponRequest), "처리되었습니다");
     }
 
@@ -45,12 +48,12 @@ public class CouponController {
      * @return
      */
     @GetMapping
-    public ApiUtil.ApiResponse<List<CouponResponse>> getCoupons() {
+    public ApiResponse<List<CouponResponse>> getCoupons() {
         return ApiUtil.success(couponService.getCoupons(), "처리되었습니다");
     }
 
     @PostMapping("/{couponId}")
-    public ApiUtil.ApiResponse<CouponResponse> issuanceCoupon(@RequestParam String couponId) {
+    public ApiResponse<CouponResponse> issuanceCoupon(@RequestParam String couponId) {
         return ApiUtil.success(couponService.issuanceCoupon(couponId), "처리되었습니다.");
     }
 
