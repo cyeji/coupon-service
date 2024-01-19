@@ -1,8 +1,8 @@
 package com.yeji.couponservice.service;
 
+import com.yeji.couponservice.adapter.in.web.CouponRequestForm;
 import com.yeji.couponservice.common.exceptions.AlreadyExistsCouponException;
-import com.yeji.couponservice.controller.form.CouponRequestForm;
-import com.yeji.couponservice.controller.response.CouponResponse;
+import com.yeji.couponservice.port.in.CouponResponse;
 import com.yeji.couponservice.repository.CouponRepository;
 import com.yeji.couponservice.repository.entity.Coupon;
 import java.util.List;

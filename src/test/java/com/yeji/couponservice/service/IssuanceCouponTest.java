@@ -2,7 +2,7 @@ package com.yeji.couponservice.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.yeji.couponservice.controller.form.CouponRequestForm;
+import com.yeji.couponservice.adapter.in.web.CouponRequestForm;
 import com.yeji.couponservice.repository.CouponRepository;
 import com.yeji.couponservice.repository.entity.Coupon;
 import com.yeji.couponservice.repository.entity.enums.CouponType;

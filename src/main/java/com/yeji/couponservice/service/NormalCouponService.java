@@ -1,8 +1,10 @@
 package com.yeji.couponservice.service;
 
+import com.yeji.couponservice.adapter.in.web.CouponRequestForm;
 import com.yeji.couponservice.common.exceptions.AlreadyExistsCouponException;
-import com.yeji.couponservice.controller.form.CouponRequestForm;
-import com.yeji.couponservice.controller.response.CouponResponse;
+import com.yeji.couponservice.port.in.CouponCommand;
+import com.yeji.couponservice.port.in.CouponResponse;
+import com.yeji.couponservice.port.in.CouponUseCase;
 import com.yeji.couponservice.repository.CouponRepository;
 import com.yeji.couponservice.repository.entity.Coupon;
 import java.util.List;
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class NormalCouponService implements CouponService {
+public class NormalCouponService implements CouponUseCase {
 
     private final CouponRepository couponRepository;
 
@@ -33,6 +35,11 @@ public class NormalCouponService implements CouponService {
         Coupon coupon = Coupon.from(couponRequest);
         couponRepository.save(coupon);
         return CouponResponse.from(coupon);
+    }
+
+    @Override
+    public CouponResponse createCoupon(CouponCommand couponCommand) {
+        return null;
     }
 
     /**

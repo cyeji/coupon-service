@@ -3,7 +3,7 @@ package com.yeji.couponservice.controller;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.yeji.couponservice.controller.form.CouponRequestForm;
+import com.yeji.couponservice.adapter.in.web.CouponRequestForm;
 import com.yeji.couponservice.repository.entity.enums.CouponType;
 import com.yeji.couponservice.repository.entity.enums.DiscountType;
 import org.junit.jupiter.api.DisplayName;

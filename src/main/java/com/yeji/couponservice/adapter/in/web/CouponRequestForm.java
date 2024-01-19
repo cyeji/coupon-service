@@ -1,7 +1,9 @@
-package com.yeji.couponservice.controller.form;
+package com.yeji.couponservice.adapter.in.web;
 
 
-import jakarta.validation.constraints.NotNull;
+import static org.springframework.beans.BeanUtils.copyProperties;
+
+import com.yeji.couponservice.port.in.CouponCommand;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,11 +18,9 @@ import lombok.Setter;
 public class CouponRequestForm {
 
     /** 쿠폰 명 */
-    @NotNull
     private String couponName;
 
     /** 쿠폰 코드 */
-    @NotNull
     private String couponCode;
 
     /** 쿠폰 다운로드 시작일 */
@@ -36,19 +36,20 @@ public class CouponRequestForm {
     private String availableEndDate;
 
     /** 할인 형태 */
-    @NotNull
     private String discountType;
 
     /** 비용 */
-    @NotNull
     private int cost;
 
     /** 쿠폰 발급 매수 */
-    @NotNull
     private int numberOfCoupons;
 
     /** 쿠폰 종류 */
-    @NotNull
     private String couponType;
 
+    public CouponCommand convert() {
+        CouponCommand couponCommand = new CouponCommand();
+        copyProperties(this, couponCommand);
+        return couponCommand;
+    }
 }

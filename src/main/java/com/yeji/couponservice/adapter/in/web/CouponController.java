@@ -1,35 +1,26 @@
-package com.yeji.couponservice.controller;
+package com.yeji.couponservice.adapter.in.web;
 
 import com.yeji.couponservice.common.ApiUtil;
 import com.yeji.couponservice.common.ApiUtil.ApiResponse;
-import com.yeji.couponservice.controller.form.CouponRequestForm;
-import com.yeji.couponservice.controller.response.CouponResponse;
-import com.yeji.couponservice.service.CouponService;
+import com.yeji.couponservice.port.in.CouponCommand;
+import com.yeji.couponservice.port.in.CouponResponse;
+import com.yeji.couponservice.port.in.CouponUseCase;
 import jakarta.validation.Valid;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
-/**
- * 쿠폰 처리 컨트롤러
- *
- * @author yeji.jo
- * @since 2024.01.10
- */
-@RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/coupon")
+@RequiredArgsConstructor
 public class CouponController {
 
-    @Qualifier("normalCouponService")
-    private final CouponService couponService;
+
+    private final CouponUseCase couponUseCase;
+
 
     /**
      * 쿠폰 생성
@@ -39,7 +30,8 @@ public class CouponController {
      */
     @PostMapping
     public ApiResponse<CouponResponse> createCoupon(@Valid @RequestBody CouponRequestForm couponRequest) {
-        return ApiUtil.success(couponService.createCoupon(couponRequest), "처리되었습니다");
+        CouponCommand couponCommand = couponRequest.convert();
+        return ApiUtil.success(couponUseCase.createCoupon(couponCommand), "처리되었습니다.");
     }
 
     /**
@@ -56,5 +48,4 @@ public class CouponController {
     public ApiResponse<CouponResponse> issuanceCoupon(@RequestParam String couponId) {
         return ApiUtil.success(couponService.issuanceCoupon(couponId), "처리되었습니다.");
     }
-
 }

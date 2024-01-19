@@ -1,7 +1,7 @@
 package com.yeji.couponservice.service;
 
-import com.yeji.couponservice.controller.form.CouponRequestForm;
-import com.yeji.couponservice.controller.response.CouponResponse;
+import com.yeji.couponservice.adapter.in.web.CouponRequestForm;
+import com.yeji.couponservice.port.in.CouponResponse;
 import java.util.List;
 
 public interface CouponService {

@@ -1,7 +1,7 @@
 package com.yeji.couponservice.repository.entity;
 
+import com.yeji.couponservice.adapter.in.web.CouponRequestForm;
 import com.yeji.couponservice.common.exceptions.TimeoutException;
-import com.yeji.couponservice.controller.form.CouponRequestForm;
 import com.yeji.couponservice.repository.entity.converter.CouponTypeConverter;
 import com.yeji.couponservice.repository.entity.converter.DiscountTypeConverter;
 import com.yeji.couponservice.repository.entity.enums.CouponType;

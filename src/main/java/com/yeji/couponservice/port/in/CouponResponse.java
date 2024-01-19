@@ -1,4 +1,4 @@
-package com.yeji.couponservice.controller.response;
+package com.yeji.couponservice.port.in;
 
 
 import static org.springframework.beans.BeanUtils.copyProperties;
