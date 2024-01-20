@@ -1,12 +1,11 @@
 package com.yeji.couponservice.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import com.yeji.couponservice.adapter.in.web.CouponRequestForm;
+import com.yeji.couponservice.adapter.out.persistence.enums.CouponType;
+import com.yeji.couponservice.adapter.out.persistence.enums.DiscountType;
+import com.yeji.couponservice.application.service.NormalCreateCouponService;
 import com.yeji.couponservice.repository.CouponRepository;
 import com.yeji.couponservice.repository.entity.Coupon;
-import com.yeji.couponservice.repository.entity.enums.CouponType;
-import com.yeji.couponservice.repository.entity.enums.DiscountType;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -26,7 +25,7 @@ class IssuanceCouponTest {
     private CouponRepository couponRepository;
 
     @Autowired
-    private NormalCouponService normalCouponService;
+    private NormalCreateCouponService normalCouponService;
 
     @BeforeEach
     public void setUp() throws Exception {

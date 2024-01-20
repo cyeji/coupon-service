@@ -1,8 +1,8 @@
-package com.yeji.couponservice.port.in;
+package com.yeji.couponservice.application.port.in;
 
 import java.util.List;
 
-public interface CouponUseCase {
+public interface CreateCouponUseCase {
 
     CouponResponse createCoupon(CouponCommand couponCommand);
 

@@ -1,6 +1,6 @@
-package com.yeji.couponservice.repository.entity.converter;
+package com.yeji.couponservice.adapter.out.persistence.converter;
 
-import com.yeji.couponservice.repository.entity.enums.DiscountType;
+import com.yeji.couponservice.adapter.out.persistence.enums.DiscountType;
 import jakarta.persistence.AttributeConverter;
 import java.util.Arrays;
 import java.util.NoSuchElementException;

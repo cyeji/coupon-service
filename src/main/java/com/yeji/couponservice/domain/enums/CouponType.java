@@ -1,4 +1,4 @@
-package com.yeji.couponservice.repository.entity.enums;
+package com.yeji.couponservice.domain.enums;
 
 import lombok.Getter;
 

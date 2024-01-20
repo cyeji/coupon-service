@@ -1,4 +1,4 @@
-package com.yeji.couponservice.repository.entity;
+package com.yeji.couponservice.adapter.out.persistence;
 
 
 import jakarta.persistence.MappedSuperclass;

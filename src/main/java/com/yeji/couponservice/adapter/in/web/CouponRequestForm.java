@@ -3,7 +3,7 @@ package com.yeji.couponservice.adapter.in.web;
 
 import static org.springframework.beans.BeanUtils.copyProperties;
 
-import com.yeji.couponservice.port.in.CouponCommand;
+import com.yeji.couponservice.application.port.in.CouponCommand;
 import lombok.Getter;
 import lombok.Setter;
 
