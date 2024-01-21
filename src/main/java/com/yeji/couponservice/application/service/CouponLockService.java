@@ -36,8 +36,11 @@ public class CouponLockService implements CreateCouponUseCase {
      */
     @Override
     public List<CouponResponse> getCoupons() {
+        List<Coupon> coupons = couponPort.getCoupons();
 
-        return null;
+        return coupons.stream()
+                      .map(CouponResponse::from)
+                      .toList();
     }
 
     /**
@@ -48,7 +51,8 @@ public class CouponLockService implements CreateCouponUseCase {
     @Transactional
     @Override
     public CouponResponse issuanceCoupon(String couponId) {
+        Coupon issuanceCoupon = couponPort.issuanceCoupon(couponId);
 
-        return null;
+        return CouponResponse.from(issuanceCoupon);
     }
 }

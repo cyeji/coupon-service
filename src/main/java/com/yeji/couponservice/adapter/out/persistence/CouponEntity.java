@@ -16,7 +16,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
-import java.util.Optional;
 import java.util.UUID;
 
 @Table(name = "coupon")
@@ -71,7 +70,8 @@ public class CouponEntity extends UpdatedEntity {
         return new CouponEntity(coupon);
     }
 
-    public Optional<Coupon> convertToCoupon() {
+
+    public Coupon convertToCoupon() {
         Coupon coupon = Coupon.builder()
                               .UUid(this.couponId)
                               .couponName(this.couponName)
@@ -86,6 +86,10 @@ public class CouponEntity extends UpdatedEntity {
                               .availableEndDate(this.availableEndDate)
                               .build();
 
-        return Optional.of(coupon);
+        return coupon;
+    }
+
+    public void issuanceCoupon() {
+        this.numberOfCoupons--;
     }
 }
