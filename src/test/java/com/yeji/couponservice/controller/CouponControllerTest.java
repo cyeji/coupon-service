@@ -4,8 +4,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.yeji.couponservice.adapter.in.web.CouponRequestForm;
-import com.yeji.couponservice.adapter.out.persistence.enums.CouponType;
-import com.yeji.couponservice.adapter.out.persistence.enums.DiscountType;
+import com.yeji.couponservice.domain.enums.CouponType;
+import com.yeji.couponservice.domain.enums.DiscountType;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

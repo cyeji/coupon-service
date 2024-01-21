@@ -17,7 +17,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
 import java.util.UUID;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "coupon")
 @Entity
 public class CouponEntity extends UpdatedEntity {
@@ -64,7 +67,6 @@ public class CouponEntity extends UpdatedEntity {
     public CouponEntity(Coupon coupon) {
         copyProperties(coupon, this);
     }
-
 
     public static CouponEntity from(Coupon coupon) {
         return new CouponEntity(coupon);

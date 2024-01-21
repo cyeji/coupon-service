@@ -52,7 +52,7 @@ public class CouponCommand {
 
     public Coupon convertToCoupon() {
 
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd");
 
         Coupon coupon = Coupon.builder()
                               .couponName(this.couponName)
