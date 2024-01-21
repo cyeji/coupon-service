@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CouponRepository extends JpaRepository<CouponEntity, UUID> {
 
-    Optional<CouponEntity> findByCouponName(UUID couponName);
+    Optional<CouponEntity> findByCouponName(String couponName);
 }

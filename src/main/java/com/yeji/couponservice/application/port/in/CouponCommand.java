@@ -1,6 +1,11 @@
 package com.yeji.couponservice.application.port.in;
 
+import com.yeji.couponservice.domain.Coupon;
+import com.yeji.couponservice.domain.enums.CouponType;
+import com.yeji.couponservice.domain.enums.DiscountType;
 import jakarta.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,7 +35,7 @@ public class CouponCommand {
 
     /** 할인 형태 */
     @NotNull
-    private String discountType;
+    private DiscountType discountType;
 
     /** 비용 */
     @NotNull
@@ -42,7 +47,26 @@ public class CouponCommand {
 
     /** 쿠폰 종류 */
     @NotNull
-    private String couponType;
+    private CouponType couponType;
 
 
+    public Coupon convertToCoupon() {
+
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
+        Coupon coupon = Coupon.builder()
+                              .couponName(this.couponName)
+                              .couponCode(this.couponCode)
+                              .cost(this.cost)
+                              .numberOfCoupons(this.numberOfCoupons)
+                              .discountType(this.discountType)
+                              .couponType(this.couponType)
+                              .downloadStartDate(LocalDate.parse(this.downloadStartDate, dateTimeFormatter))
+                              .downloadEndDate(LocalDate.parse(this.downloadEndDate, dateTimeFormatter))
+                              .availableStartDate(LocalDate.parse(this.availableStartDate, dateTimeFormatter))
+                              .availableEndDate(LocalDate.parse(this.availableEndDate, dateTimeFormatter))
+                              .build();
+
+        return coupon;
+    }
 }

@@ -1,11 +1,9 @@
 package com.yeji.couponservice.application.port.in;
 
 
-import static org.springframework.beans.BeanUtils.copyProperties;
-
-import com.yeji.couponservice.repository.entity.Coupon;
+import com.yeji.couponservice.domain.Coupon;
 import jakarta.validation.constraints.NotNull;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -22,16 +20,16 @@ public class CouponResponse {
     private String couponCode;
 
     /** 쿠폰 다운로드 시작일 */
-    private LocalDateTime downloadStartDate;
+    private LocalDate downloadStartDate;
 
     /** 쿠폰 다운로드 종료일 */
-    private LocalDateTime downloadEndDate;
+    private LocalDate downloadEndDate;
 
     /** 쿠폰 사용가능 시작일 */
-    private LocalDateTime availableStartDate;
+    private LocalDate availableStartDate;
 
     /** 쿠폰 사용가능 종료일 */
-    private LocalDateTime availableEndDate;
+    private LocalDate availableEndDate;
 
     /** 할인 형태 */
     @NotNull
@@ -50,8 +48,18 @@ public class CouponResponse {
     private String couponType;
 
     public CouponResponse(Coupon coupon) {
-        copyProperties(coupon, this);
+        this.couponName = coupon.getCouponName();
+        this.couponCode = coupon.getCouponCode();
+        this.downloadStartDate = coupon.getDownloadStartDate();
+        this.downloadEndDate = coupon.getDownloadEndDate();
+        this.availableStartDate = coupon.getAvailableStartDate();
+        this.availableEndDate = coupon.getAvailableEndDate();
+        this.discountType = String.valueOf(coupon.getDiscountType());
+        this.cost = coupon.getCost();
+        this.numberOfCoupons = coupon.getNumberOfCoupons();
+        this.couponType = String.valueOf(coupon.getCouponType());
     }
+
 
     public static CouponResponse from(Coupon coupon) {
         return new CouponResponse(coupon);

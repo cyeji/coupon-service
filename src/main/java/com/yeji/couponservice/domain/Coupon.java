@@ -1,8 +1,15 @@
 package com.yeji.couponservice.domain;
 
+import com.yeji.couponservice.domain.enums.CouponType;
+import com.yeji.couponservice.domain.enums.DiscountType;
 import java.time.LocalDate;
 import java.util.UUID;
+import lombok.Builder;
+import lombok.Getter;
 
+
+@Getter
+@Builder
 public class Coupon {
 
     private UUID UUid;
@@ -24,4 +31,12 @@ public class Coupon {
 
     /** 쿠폰 사용가능 종료일 */
     private LocalDate availableEndDate;
+
+    private DiscountType discountType;
+
+    private int cost;
+
+    private int numberOfCoupons;
+
+    private CouponType couponType;
 }

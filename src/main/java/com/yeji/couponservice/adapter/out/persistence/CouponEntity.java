@@ -1,9 +1,12 @@
 package com.yeji.couponservice.adapter.out.persistence;
 
+import static org.springframework.beans.BeanUtils.copyProperties;
+
 import com.yeji.couponservice.adapter.out.persistence.converter.CouponTypeConverter;
 import com.yeji.couponservice.adapter.out.persistence.converter.DiscountTypeConverter;
-import com.yeji.couponservice.adapter.out.persistence.enums.CouponType;
-import com.yeji.couponservice.adapter.out.persistence.enums.DiscountType;
+import com.yeji.couponservice.domain.Coupon;
+import com.yeji.couponservice.domain.enums.CouponType;
+import com.yeji.couponservice.domain.enums.DiscountType;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,6 +16,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.UUID;
 
 @Table(name = "coupon")
@@ -58,4 +62,30 @@ public class CouponEntity extends UpdatedEntity {
     @Convert(converter = CouponTypeConverter.class)
     private CouponType couponType;
 
+    public CouponEntity(Coupon coupon) {
+        copyProperties(coupon, this);
+    }
+
+
+    public static CouponEntity from(Coupon coupon) {
+        return new CouponEntity(coupon);
+    }
+
+    public Optional<Coupon> convertToCoupon() {
+        Coupon coupon = Coupon.builder()
+                              .UUid(this.couponId)
+                              .couponName(this.couponName)
+                              .couponCode(this.couponCode)
+                              .cost(this.cost)
+                              .numberOfCoupons(this.numberOfCoupons)
+                              .discountType(this.discountType)
+                              .couponType(this.couponType)
+                              .downloadStartDate(this.downloadStartDate)
+                              .downloadEndDate(this.downloadEndDate)
+                              .availableStartDate(this.availableStartDate)
+                              .availableEndDate(this.availableEndDate)
+                              .build();
+
+        return Optional.of(coupon);
+    }
 }

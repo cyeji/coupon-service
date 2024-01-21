@@ -3,6 +3,8 @@ package com.yeji.couponservice.application.service;
 import com.yeji.couponservice.application.port.in.CouponCommand;
 import com.yeji.couponservice.application.port.in.CouponResponse;
 import com.yeji.couponservice.application.port.in.CreateCouponUseCase;
+import com.yeji.couponservice.application.port.out.CreateCouponPort;
+import com.yeji.couponservice.domain.Coupon;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,11 +14,19 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class CouponLockService implements CreateCouponUseCase {
 
+    private final CreateCouponPort couponPort;
 
     @Override
     public CouponResponse createCoupon(CouponCommand couponCommand) {
+        couponPort.findByCouponName(couponCommand.getCouponName())
+                  .ifPresent(c -> {
+                      throw new IllegalStateException("쿠폰 이름이 이미 있습니다.");
+                  });
 
-        return null;
+        Coupon coupon = couponCommand.convertToCoupon();
+
+        return CouponResponse.from(couponPort.save(coupon)
+                                             .get());
     }
 
     /**
