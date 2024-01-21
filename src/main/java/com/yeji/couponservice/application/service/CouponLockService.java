@@ -55,4 +55,17 @@ public class CouponLockService implements CreateCouponUseCase {
 
         return CouponResponse.from(issuanceCoupon);
     }
+
+    /**
+     * 쿠폰 발급 동시성 처리
+     */
+    @Transactional
+    @Override
+    public CouponResponse issuanceCouponWithConcurrent(String id) {
+        Coupon coupon = couponPort.issuanceCouponWithOptimisticLock(id);
+
+        return CouponResponse.from(coupon);
+    }
+
+
 }

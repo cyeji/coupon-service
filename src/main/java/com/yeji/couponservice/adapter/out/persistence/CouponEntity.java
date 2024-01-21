@@ -1,7 +1,5 @@
 package com.yeji.couponservice.adapter.out.persistence;
 
-import static org.springframework.beans.BeanUtils.copyProperties;
-
 import com.yeji.couponservice.adapter.out.persistence.converter.CouponTypeConverter;
 import com.yeji.couponservice.adapter.out.persistence.converter.DiscountTypeConverter;
 import com.yeji.couponservice.domain.Coupon;
@@ -65,7 +63,16 @@ public class CouponEntity extends UpdatedEntity {
     private CouponType couponType;
 
     public CouponEntity(Coupon coupon) {
-        copyProperties(coupon, this);
+        this.couponName = coupon.getCouponName();
+        this.couponCode = coupon.getCouponCode();
+        this.couponType = coupon.getCouponType();
+        this.discountType = coupon.getDiscountType();
+        this.downloadStartDate = coupon.getDownloadStartDate();
+        this.downloadEndDate = coupon.getDownloadEndDate();
+        this.availableStartDate = coupon.getAvailableEndDate();
+        this.availableEndDate = coupon.getAvailableEndDate();
+        this.cost = coupon.getCost();
+        this.numberOfCoupons = coupon.getNumberOfCoupons();
     }
 
     public static CouponEntity from(Coupon coupon) {
@@ -75,7 +82,7 @@ public class CouponEntity extends UpdatedEntity {
 
     public Coupon convertToCoupon() {
         Coupon coupon = Coupon.builder()
-                              .UUid(this.couponId)
+                              .couponId(this.couponId)
                               .couponName(this.couponName)
                               .couponCode(this.couponCode)
                               .cost(this.cost)

@@ -16,4 +16,6 @@ public interface CreateCouponPort {
     Optional<Coupon> findById(String couponId);
 
     Coupon issuanceCoupon(String couponId);
+
+    Coupon issuanceCouponWithOptimisticLock(String couponId);
 }

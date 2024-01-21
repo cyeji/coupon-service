@@ -63,4 +63,13 @@ public class CreateCouponPortAdapter implements CreateCouponPort {
 
         return couponEntity.convertToCoupon();
     }
+
+    @Override
+    public Coupon issuanceCouponWithOptimisticLock(String couponId) {
+        CouponEntity couponEntity = couponRepository.findByIdWithOptimisticLock(UUID.fromString(couponId))
+                                                    .orElseThrow(() -> new IllegalArgumentException("쿠폰 값을 찾을 수 없습니다."));
+
+        couponEntity.issuanceCoupon();
+        return couponEntity.convertToCoupon();
+    }
 }

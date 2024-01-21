@@ -10,4 +10,5 @@ public interface CreateCouponUseCase {
 
     CouponResponse issuanceCoupon(String id);
 
+    CouponResponse issuanceCouponWithConcurrent(String id);
 }

@@ -12,7 +12,7 @@ import lombok.Getter;
 @Builder
 public class Coupon {
 
-    private UUID UUid;
+    private UUID couponId;
 
     /** 쿠폰 명 */
     private String couponName;
