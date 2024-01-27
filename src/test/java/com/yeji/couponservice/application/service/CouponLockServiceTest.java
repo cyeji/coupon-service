@@ -3,6 +3,7 @@ package com.yeji.couponservice.application.service;
 import static org.junit.Assert.assertEquals;
 
 import com.yeji.couponservice.adapter.out.persistence.CreateCouponPortAdapter;
+import com.yeji.couponservice.application.port.in.CouponResponse;
 import com.yeji.couponservice.domain.Coupon;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -64,7 +65,8 @@ class CouponLockServiceTest {
         for (int i = 0; i < threadCount; i++) {
             executor.submit(() -> {
                 try {
-                    couponLockService.issuanceCouponWithConcurrent(couponId.toString());
+                    CouponResponse couponResponse = couponLockService.issuanceCouponWithConcurrent(couponId.toString());
+                    System.out.println(+couponResponse.getNumberOfCoupons());
                 } finally {
                     countDownLatch.countDown();
                 }
