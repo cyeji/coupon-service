@@ -62,8 +62,7 @@ public class CouponLockService implements CreateCouponUseCase {
     @Transactional
     @Override
     public CouponResponse issuanceCouponWithConcurrent(String id) {
-        Coupon coupon = couponPort.issuanceCouponWithOptimisticLock(id);
-
+        Coupon coupon = couponPort.issuanceCouponWithDatabaseLock(id);
         return CouponResponse.from(coupon);
     }
 
