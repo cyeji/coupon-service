@@ -106,6 +106,9 @@ public class CouponEntity extends UpdatedEntity {
     }
 
     public void issuanceCoupon() {
+        if (this.numberOfCoupons < 0) {
+            throw new IllegalArgumentException("쿠폰이 모두 소진되었습니다.");
+        }
         this.numberOfCoupons--;
     }
 
