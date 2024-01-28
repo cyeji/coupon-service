@@ -11,4 +11,6 @@ public interface CreateCouponUseCase {
     CouponResponse issuanceCoupon(String id);
 
     CouponResponse issuanceCouponWithConcurrent(String id);
+
+    CouponResponse issuanceCouponWithOptimisticLock(String id) throws InterruptedException;
 }

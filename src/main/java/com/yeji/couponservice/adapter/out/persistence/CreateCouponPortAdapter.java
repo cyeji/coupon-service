@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -72,4 +73,24 @@ public class CreateCouponPortAdapter implements CreateCouponPort {
         couponEntity.issuanceCoupon();
         return couponEntity.convertToCoupon();
     }
+
+    @Transactional
+    @Override
+    public Coupon issuanceCouponWithOptimisticLock(String couponId) throws InterruptedException {
+        while (true) {
+            try {
+                CouponEntity couponEntity = couponRepository.findByIdWithOptimisticLock(UUID.fromString(couponId))
+                                                            .orElseThrow(() -> new IllegalArgumentException("쿠폰 값을 찾을 수 없습니다."));
+                couponEntity.issuanceCoupon();
+                couponRepository.save(couponEntity);
+//                System.out.println("version : " + couponEntity.getVersion());
+                return couponEntity.convertToCoupon();
+            } catch (Exception e) {
+                System.err.println("오류 !!!" + e.getMessage());
+                Thread.sleep(500000);
+            }
+        }
+    }
+
+
 }

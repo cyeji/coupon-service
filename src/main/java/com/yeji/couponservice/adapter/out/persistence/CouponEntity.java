@@ -13,11 +13,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import java.time.LocalDate;
 import java.util.UUID;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "coupon")
 @Entity
@@ -62,6 +65,10 @@ public class CouponEntity extends UpdatedEntity {
     @Convert(converter = CouponTypeConverter.class)
     private CouponType couponType;
 
+
+    @Version
+    private Long version;
+
     public CouponEntity(Coupon coupon) {
         this.couponName = coupon.getCouponName();
         this.couponCode = coupon.getCouponCode();
@@ -101,4 +108,5 @@ public class CouponEntity extends UpdatedEntity {
     public void issuanceCoupon() {
         this.numberOfCoupons--;
     }
+
 }

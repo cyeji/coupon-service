@@ -5,10 +5,12 @@ import com.yeji.couponservice.domain.Coupon;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class CouponResponse {
 
     /** 쿠폰 명 */
@@ -63,5 +65,9 @@ public class CouponResponse {
 
     public static CouponResponse from(Coupon coupon) {
         return new CouponResponse(coupon);
+    }
+
+    public static CouponResponse empty() {
+        return new CouponResponse();
     }
 }
