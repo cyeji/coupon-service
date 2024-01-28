@@ -83,4 +83,43 @@ class CouponLockServiceTest {
         Coupon coupon = optionalCoupon.get();
         assertEquals(900, coupon.getNumberOfCoupons());
     }
+
+    @Test
+    @DisplayName("쿠폰 발급 동시성 테스트 - optimisticLock")
+    void test_case_2() throws Exception {
+        // given
+        List<Coupon> coupons = createCouponPortAdapter.getCoupons();
+        if (coupons.isEmpty()) {
+            throw new IllegalStateException();
+        }
+        int threadCount = 100;
+        UUID couponId = coupons.get(0)
+                               .getCouponId();
+        // when
+        ExecutorService executor = Executors.newFixedThreadPool(32);
+        CountDownLatch countDownLatch = new CountDownLatch(threadCount);
+        // then
+        for (int i = 0; i < threadCount; i++) {
+            executor.submit(() -> {
+                try {
+                    CouponResponse couponResponse = couponLockService.issuanceCouponWithOptimisticLock(couponId.toString());
+                    System.out.println("couponResponse: " + couponResponse.getNumberOfCoupons());
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                } finally {
+                    countDownLatch.countDown();
+                }
+
+            });
+        }
+        countDownLatch.await();
+
+        Optional<Coupon> optionalCoupon = createCouponPortAdapter.findById(couponId.toString());
+        if (optionalCoupon.isEmpty()) {
+            throw new IllegalStateException();
+        }
+
+        Coupon coupon = optionalCoupon.get();
+        assertEquals(900, coupon.getNumberOfCoupons());
+    }
 }
