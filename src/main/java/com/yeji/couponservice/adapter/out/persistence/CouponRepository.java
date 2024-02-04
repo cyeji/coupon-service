@@ -15,8 +15,8 @@ public interface CouponRepository extends JpaRepository<CouponEntity, UUID> {
     @Query("select c from CouponEntity c where c.id = :id")
     Optional<CouponEntity> findByIdWithPessimisticLock(UUID id);
 
-    @Lock(LockModeType.OPTIMISTIC)
-    @Query("select c from CouponEntity c where c.id = :id")
+    @Lock(value = LockModeType.OPTIMISTIC)
+    @Query("select c from CouponEntity c where c.couponId = :id")
     Optional<CouponEntity> findByIdWithOptimisticLock(UUID id);
 
 }

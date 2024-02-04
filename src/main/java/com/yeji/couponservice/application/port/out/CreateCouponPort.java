@@ -18,4 +18,6 @@ public interface CreateCouponPort {
     Coupon issuanceCoupon(String couponId);
 
     Coupon issuanceCouponWithDatabaseLock(String couponId);
+
+    Coupon issuanceCouponWithOptimisticLock(String couponId) throws InterruptedException;
 }

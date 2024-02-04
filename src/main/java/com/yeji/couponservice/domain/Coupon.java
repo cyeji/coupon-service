@@ -39,4 +39,6 @@ public class Coupon {
     private int numberOfCoupons;
 
     private CouponType couponType;
+
+
 }
