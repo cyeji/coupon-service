@@ -66,9 +66,9 @@ public class CouponLockService implements CreateCouponUseCase {
         return CouponResponse.from(coupon);
     }
 
+    @Transactional
     @Override
-    public CouponResponse issuanceCouponWithOptimisticLock(String id) throws InterruptedException {
-
+    public CouponResponse issuanceCouponWithOptimisticLock(String id) {
         Coupon coupon = couponPort.issuanceCouponWithOptimisticLock(id);
         return CouponResponse.from(coupon);
 
