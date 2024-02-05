@@ -7,6 +7,7 @@ import com.yeji.couponservice.application.port.out.CreateCouponPort;
 import com.yeji.couponservice.domain.Coupon;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Component
@@ -15,16 +16,18 @@ public class CouponRedisLockService implements CreateCouponWithRedisUseCase {
     private final CouponRedisLockPort couponRedisLockPort;
     private final CreateCouponPort couponPort;
 
+    @Transactional
     @Override
-    public CouponResponse decrease(String couponId, Long amount) throws InterruptedException {
+    public CouponResponse decrease(String couponId) throws InterruptedException {
 
         while (!couponRedisLockPort.lock(couponId)) {
-            Thread.sleep(100);
+            Thread.sleep(1000);
         }
 
         try {
 
             Coupon coupon = couponPort.issuanceCoupon(couponId);
+            System.out.println("coupon : " + coupon.getNumberOfCoupons());
             return CouponResponse.from(coupon);
 
         } finally {
