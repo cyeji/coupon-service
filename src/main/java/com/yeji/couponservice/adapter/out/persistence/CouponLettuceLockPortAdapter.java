@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @RequiredArgsConstructor
 @Component
-public class CouponRedisLockPortAdapter implements CouponRedisLockPort {
+public class CouponLettuceLockPortAdapter implements CouponRedisLockPort {
 
     private final RedisTemplate<String, String> redisTemplate;
 
