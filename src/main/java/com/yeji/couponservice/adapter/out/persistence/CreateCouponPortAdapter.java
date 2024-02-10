@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -55,6 +56,7 @@ public class CreateCouponPortAdapter implements CreateCouponPort {
     }
 
     @Override
+    @Transactional
     public Coupon issuanceCoupon(String couponId) {
         CouponEntity couponEntity = couponRepository.findById(UUID.fromString(couponId))
                                                     .orElseThrow(() -> new IllegalArgumentException("쿠폰 값을 찾을 수 없습니다."));
