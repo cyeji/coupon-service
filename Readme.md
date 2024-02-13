@@ -21,3 +21,5 @@
 1. synchronized
 2. Database Lock (Optimistic lock, Pessimistic lock)
 3. Redis (Lettuce, Redisson)
+
++ 재시도 패턴
